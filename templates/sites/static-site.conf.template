@@ -1,5 +1,5 @@
 # Static Site Template (serving files from /var/www)
-# Copyright (c) YEAR Your Name or Organization
+# Copyright (c) 2025 IzeLeam
 # License: MIT
 #
 # Example for simple static sites. Replace {{SERVER_NAME}} and {{ROOT_PATH}}.

@@ -1,6 +1,6 @@
 # SecureNginx — Educational NGINX Templates
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Validate templates](https://github.com/IzeLeam/SecureNginx/actions/workflows/validate-templates.yml/badge.svg)](.github/workflows/validate-templates.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ## Table of contents
 - [Overview](#overview)

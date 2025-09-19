@@ -1,5 +1,5 @@
 # Generic Application Proxy Template (reverse proxy to upstream app)
-# Copyright (c) YEAR Your Name or Organization
+# Copyright (c) 2025 IzeLeam
 # License: MIT
 #
 # Use this for Node/Go/Python apps running on localhost or a Docker network.

@@ -1,5 +1,5 @@
 # Default site template (conf.d/default.conf)
-# Copyright (c) YEAR Your Name or Organization
+# Copyright (c) 2025 IzeLeam
 # License: MIT
 #
 # Purpose: Generic default server blocks for HTTP and HTTPS that catch unspecified requests.

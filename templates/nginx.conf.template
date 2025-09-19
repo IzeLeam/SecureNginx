@@ -1,6 +1,6 @@
 # NGINX Global Configuration Template
-# Copyright (c) YEAR Your Name or Organization
-# License: MIT (replace as needed)
+# Copyright (c) 2025 IzeLeam
+# License: MIT
 #
 # Usage:
 # - Copy this file to /etc/nginx/nginx.conf on your host and adapt paths.
