@@ -1,0 +1,54 @@
+# NGINX Global Configuration Template
+# Copyright (c) YEAR Your Name or Organization
+# License: MIT (replace as needed)
+#
+# Usage:
+# - Copy this file to /etc/nginx/nginx.conf on your host and adapt paths.
+# - Replace placeholder values: {{WORKER_CONNECTIONS}}, {{INCLUDE_SITES_PATH}}, etc.
+# - Consult the included site templates in templates/sites/ for example server blocks.
+#
+# Notes:
+# - This template intentionally keeps secure-by-default TLS settings and sane defaults.
+# - Always run `nginx -t` after editing and reload with `systemctl reload nginx`.
+
+user www-data;
+worker_processes auto;
+error_log /var/log/nginx/error.log notice;
+pid /run/nginx.pid;
+
+include /etc/nginx/modules-enabled/*.conf;
+
+events {
+    worker_connections  {{WORKER_CONNECTIONS|768}};
+}
+
+http {
+    sendfile on;
+    tcp_nopush on;
+    types_hash_max_size 2048;
+
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+
+    # SSL/TLS
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+
+    access_log /var/log/nginx/access.log;
+
+    gzip on;
+
+    # Where to include site configurations (customize if needed):
+    include {{INCLUDE_SITES_PATH|/etc/nginx/sites-enabled/*}};
+
+    # Include additional config snippets
+    include {{INCLUDE_CONF_D|/etc/nginx/conf.d/*.conf}};
+
+    # Optional global redirect to HTTPS (example)
+    # server {
+    #     listen 80 default_server;
+    #     listen [::]:80 default_server;
+    #     server_name _;
+    #     return 301 https://$host$request_uri;
+    # }
+}

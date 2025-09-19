@@ -1,0 +1,51 @@
+# Default site template (conf.d/default.conf)
+# Copyright (c) YEAR Your Name or Organization
+# License: MIT
+#
+# Purpose: Generic default server blocks for HTTP and HTTPS that catch unspecified requests.
+# Replace placeholders: {{DEFAULT_DOMAIN}}, {{SSL_CERT}}, {{SSL_KEY}}, {{DH_PARAM_PATH}}
+# Security notes and recommended hardening steps are included inline.
+
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    server_name _;
+
+    # Redirect all requests to a default HTTPS host. Replace with your canonical domain.
+    return 301 https://{{DEFAULT_DOMAIN|example.com}}$request_uri;
+}
+
+server {
+    listen 443 ssl http2 default_server;
+    listen [::]:443 ssl http2 default_server;
+
+    server_name _; # catches all unspecified requests
+
+    ssl_certificate {{SSL_CERT|/etc/letsencrypt/live/example.com/fullchain.pem}};
+    ssl_certificate_key {{SSL_KEY|/etc/letsencrypt/live/example.com/privkey.pem}};
+
+    # Performance and security
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 10m;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+    ssl_dhparam {{DH_PARAM_PATH|/etc/ssl/ffdhe4096.pem}};
+    ssl_ecdh_curve secp521r1:secp384r1;
+
+    # Recommended security headers (adjust per-site)
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains";
+    add_header X-Frame-Options DENY always;
+    add_header X-Content-Type-Options nosniff always;
+    add_header X-Xss-Protection "1; mode=block" always;
+
+    # OCSP stapling configuration - requires a valid certificate chain
+    ssl_stapling on;
+    ssl_stapling_verify on;
+    ssl_trusted_certificate {{SSL_CERT|/etc/letsencrypt/live/example.com/fullchain.pem}};
+    resolver 1.1.1.1 1.0.0.1 valid=300s;
+    resolver_timeout 5s;
+
+    # Default action: show a minimal page or redirect to canonical domain
+    return 301 https://{{DEFAULT_DOMAIN|example.com}};
+}

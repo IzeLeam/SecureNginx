@@ -1,0 +1,59 @@
+# phpMyAdmin NGINX Template
+# Copyright (c) YEAR Your Name or Organization
+# License: MIT
+#
+# Usage:
+# - Copy to /etc/nginx/sites-available/phpmyadmin.conf and symlink to sites-enabled.
+# - Replace {{SERVER_NAME}}, {{SSL_CERT}}, {{SSL_KEY}}, and PHP-FPM socket if needed.
+# - This template restricts access to static files and secures PHP handling.
+#
+# Security notes:
+# - Consider protecting phpMyAdmin with additional auth (basic auth / IP allowlist).
+# - Keep phpMyAdmin up-to-date and restrict access to admin networks when possible.
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+
+    server_name {{SERVER_NAME|phpmyadmin.example.com}};
+
+    root {{PMA_ROOT|/usr/share/phpmyadmin}};
+    index index.php index.html index.htm;
+
+    ssl_certificate      {{SSL_CERT|/etc/letsencrypt/live/phpmyadmin.example.com/fullchain.pem}};
+    ssl_certificate_key  {{SSL_KEY|/etc/letsencrypt/live/phpmyadmin.example.com/privkey.pem}};
+
+    # TLS and security options (kept conservative)
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 10m;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+    ssl_ciphers "ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:";
+    ssl_dhparam {{DH_PARAM|/etc/ssl/ffdhe4096.pem}};
+
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains";
+    add_header X-Frame-Options DENY always;
+    add_header X-Content-Type-Options nosniff always;
+
+    # Main phpMyAdmin location
+    location / {
+        try_files $uri $uri/ /index.php?$args;
+    }
+
+    # PHP-FPM handling - adjust socket or host:port as needed
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass {{PHP_FPM_SOCKET|unix:/var/run/php/php8.2-fpm.sock}};
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    # Deny access to hidden files
+    location ~ /\.|\.ht {
+        deny all;
+    }
+
+    # Optional: restrict access to internal networks
+    # allow 192.0.2.0/24; # example internal CIDR
+    # deny all;
+}

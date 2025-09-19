@@ -1,0 +1,22 @@
+# Static Site Template (serving files from /var/www)
+# Copyright (c) YEAR Your Name or Organization
+# License: MIT
+#
+# Example for simple static sites. Replace {{SERVER_NAME}} and {{ROOT_PATH}}.
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+
+    server_name {{SERVER_NAME|static.example.com}};
+
+    ssl_certificate      {{SSL_CERT|/etc/letsencrypt/live/static.example.com/fullchain.pem}};
+    ssl_certificate_key  {{SSL_KEY|/etc/letsencrypt/live/static.example.com/privkey.pem}};
+
+    root {{ROOT_PATH|/var/www/html}};
+    index index.html index.htm;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}

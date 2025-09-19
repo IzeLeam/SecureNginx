@@ -1,0 +1,18 @@
+# Simple HTTPS Redirect Template
+# Copyright (c) YEAR Your Name or Organization
+# License: MIT
+#
+# Purpose: Redirect one host to another (canonical domain or external URL)
+# Replace {{SERVER_NAME}} and {{TARGET_URL}} placeholders.
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+
+    server_name {{SERVER_NAME|redirect.example.com}};
+
+    ssl_certificate      {{SSL_CERT|/etc/letsencrypt/live/redirect.example.com/fullchain.pem}};
+    ssl_certificate_key  {{SSL_KEY|/etc/letsencrypt/live/redirect.example.com/privkey.pem}};
+
+    return 301 {{TARGET_URL|https://example.com}}$request_uri;
+}
