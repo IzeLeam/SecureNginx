@@ -1,14 +1,16 @@
+<h1 align="center">SecureNginx — Educational NGINX Templates</h1>
+
 <p align="center">
-    <h1 align="center">SecureNginx — Educational NGINX Templates</h1>
-    <br>
-    <a href="LICENSE">
-        <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
-    </a>
-    <a href="https://github.com/izeleam/securenginx/issues">
-        <img src="https://img.shields.io/github/issues/izeleam/securenginx" alt="GitHub issues">
-    </a>
-    <br><br>
-    <img src="/.github/secure_nginx_logo.png" alt="Icon" style="width:150px;">
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
+  </a>
+  <a href="https://github.com/izeleam/securenginx/issues">
+    <img src="https://img.shields.io/github/issues/izeleam/securenginx" alt="GitHub issues">
+  </a>
+</p>
+
+<p align="center">
+  <img src="/.github/secure_nginx_logo.png" alt="Icon" width="150">
 </p>
 
 ## Table of contents
