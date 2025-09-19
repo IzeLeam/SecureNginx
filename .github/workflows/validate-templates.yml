@@ -36,14 +36,14 @@ jobs:
               mkdir -p "$tmpdir"
 
               # Create a minimal config that includes the template inside http {}
-              cat > "$tmpdir/nginx.conf" <<EOF
-              events { worker_connections 1024; }
-              http {
-                include /etc/nginx/mime.types;
-                default_type application/octet-stream;
-                include $f;
-              }
-              EOF
+              cat > "$tmpdir/nginx.conf" <<-EOF
+                events { worker_connections 1024; }
+                http {
+                  include /etc/nginx/mime.types;
+                  default_type application/octet-stream;
+                  include $f;
+                }
+EOF
 
               # Show the small config and run the test
               sed -n '1,200p' "$tmpdir/nginx.conf" || true
