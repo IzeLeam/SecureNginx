@@ -1,11 +1,20 @@
-SecureNginx - Educational NGINX Templates
+# SecureNginx — Educational NGINX Templates
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Validate templates](https://github.com/IzeLeam/SecureNginx/actions/workflows/validate-templates.yml/badge.svg)](.github/workflows/validate-templates.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Validate templates](https://github.com/IzeLeam/SecureNginx/actions/workflows/validate-templates.yml/badge.svg)](.github/workflows/validate-templates.yml)
 
-Overview
+## Table of contents
+- [Overview](#overview)
+- [Quickstart](#quickstart)
+- [Placeholders](#placeholders)
+- [Security recommendations](#security-recommendations)
+- [Notes & disclaimers](#notes--disclaimers)
+- [Contributing](#contributing)
+- [Quick links](#quick-links)
+
+## Overview
 
 This repository contains a curated set of NGINX configuration templates intended for learning and bootstrapping secure NGINX setups. The templates include examples for:
+
 - Global `nginx.conf` defaults
 - `conf.d` default catch-all with TLS hardening
 - phpMyAdmin site configuration
@@ -13,37 +22,57 @@ This repository contains a curated set of NGINX configuration templates intended
 - Simple redirect site
 - Static site hosting
 
-How to use
+Each template includes explanatory comments, sensible secure defaults and placeholders to make customization straightforward.
 
-1. Copy the template you need into your server's `/etc/nginx` layout. For example:
-   - Copy `templates/nginx.conf.template` to `/etc/nginx/nginx.conf` and adapt placeholders.
-   - Copy `templates/sites/phpmyadmin.conf.template` to `/etc/nginx/sites-available/phpmyadmin.conf` and create a symlink in `sites-enabled`.
+## Quickstart
 
-2. Replace placeholders:
-   - `{{SERVER_NAME}}`, `{{SSL_CERT}}`, `{{SSL_KEY}}`, `{{PHP_FPM_SOCKET}}`, etc.
-   - You can use a simple search/replace tool or template engine.
+1. Copy the template you need into your server's NGINX layout. Examples:
 
-3. Test and reload:
-   - Run `nginx -t` to check syntax.
-   - Reload: `systemctl reload nginx`.
+```bash
+# copy global config (adapt carefully!)
+sudo cp templates/nginx.conf.template /etc/nginx/nginx.conf
 
-Security recommendations
+# copy site config and enable it
+sudo cp templates/sites/phpmyadmin.conf.template /etc/nginx/sites-available/phpmyadmin.conf
+sudo ln -s /etc/nginx/sites-available/phpmyadmin.conf /etc/nginx/sites-enabled/
+
+# test and reload
+sudo nginx -t
+sudo systemctl reload nginx
+```
+
+2. Replace placeholders in the templates before testing:
+
+- `{{SERVER_NAME}}`, `{{SSL_CERT}}`, `{{SSL_KEY}}`, `{{PHP_FPM_SOCKET}}`, etc.
+- You can use a simple search/replace tool, a templating engine, or an editor.
+
+## Placeholders
+
+- `{{SERVER_NAME|example.com}}` — domain or host for the server block.
+- `{{SSL_CERT}}` / `{{SSL_KEY}}` — TLS certificate and private key (e.g., Let's Encrypt paths).
+- `{{PHP_FPM_SOCKET}}` — e.g., `unix:/var/run/php/php8.2-fpm.sock` or `127.0.0.1:9000`.
+- `{{UPSTREAM_URL}}` — upstream app address like `http://127.0.0.1:3000`.
+
+See `docs/USAGE.md` for more examples and testing with Docker.
+
+## Security recommendations
 
 - Keep TLS protocols to TLSv1.2+ and prefer strong cipher suites.
 - Use Let's Encrypt certificates or a CA you control.
-- Protect administrative interfaces (phpMyAdmin) behind IP allowlists or additional auth.
-- Monitor logs and enable automatic certificate renewal.
+- Protect administrative interfaces (phpMyAdmin) behind IP allowlists, VPN or additional authentication.
+- Monitor logs and enable automatic certificate renewal (`certbot renew`).
+- Use `ssl_dhparam` with a strong group and enable OCSP stapling for better TLS performance.
 
-Notes and disclaimers
+## Notes & disclaimers
 
 - These files are educational and should be adapted to your environment before production use.
-- Paths like `/etc/letsencrypt/...` and PHP-FPM sockets are examples.
+- Paths like `/etc/letsencrypt/...` and PHP-FPM sockets are examples — verify them on your host.
 
-Contributing
+## Contributing
 
-- Open PRs with improvements or additional templates. See `CONTRIBUTING.md` for details.
+Contributions are welcome — see `CONTRIBUTING.md` for the PR process, testing tips and style guidelines.
 
-Quick links
+## Quick links
 
 - Detailed usage and examples: `docs/USAGE.md`
 - Security policy: `SECURITY.md`
