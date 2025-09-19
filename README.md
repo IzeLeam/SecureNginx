@@ -7,14 +7,8 @@
     <a href="https://github.com/izeleam/securenginx/issues">
         <img src="https://img.shields.io/github/issues/izeleam/securenginx" alt="GitHub issues">
     </a>
-    <a href="https://github.com/izeleam/securenginx/stargazers">
-        <img src="https://img.shields.io/github/stars/izeleam/securenginx?style=social" alt="GitHub stars">
-    </a>
-    <a href="https://github.com/izeleam/securenginx/network">
-        <img src="https://img.shields.io/github/forks/izeleam/securenginx" alt="GitHub forks">
-    </a>
     <br><br>
-    <img src="https://raw.githubusercontent.com/izeleam/secure_nginx/.github/secure_nginx_logo.png" alt="Icon">
+    <img src="https://raw.githubusercontent.com/izeleam/securenginx/.github/secure_nginx_logo.png" alt="Icon">
 </p>
 
 ## Table of contents
