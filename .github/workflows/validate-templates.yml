@@ -25,32 +25,27 @@ jobs:
             echo "Workspace mounted:"
             ls -la /workspace || true
 
-            # Create a temporary config directory for testing
-            tmpdir=/tmp/nginx-test
-            rm -rf "$tmpdir"
-            mkdir -p "$tmpdir/conf.d"
-
-            # Copy only site templates that contain server blocks (naive filter)
-            # This expects templates/sites/*.template to contain full server blocks.
+            # Validate each template individually by creating a minimal nginx.conf that
+            # includes only that template inside the http context. This isolates parse
+            # errors and avoids combining multiple server blocks in a single file.
             for f in /workspace/templates/sites/*.template; do
               [ -e "$f" ] || continue
-              echo "# from $f" > "$tmpdir/conf.d/$(basename "$f" .template).conf"
-              # Try to strip any top-level directives like 'worker_processes' if present.
-              sed '/^[[:space:]]*worker_processes\b/Id; p' "$f" >> "$tmpdir/conf.d/$(basename "$f" .template).conf"
-            done
+              echo "\n--- Testing $f ---\n"
+              tmpdir=/tmp/nginx-test-$(basename "$f")
+              rm -rf "$tmpdir"
+              mkdir -p "$tmpdir"
 
-            # Create a minimal main config with proper contexts only
-            cat > "$tmpdir/nginx.conf" <<'EOF'
-            events { worker_connections 1024; }
-            http {
+              # Create a minimal config that includes the template inside http {}
+              cat > "$tmpdir/nginx.conf" <<EOF
+              events { worker_connections 1024; }
+              http {
                 include /etc/nginx/mime.types;
                 default_type application/octet-stream;
-                include /tmp/nginx-test/conf.d/*.conf;
-            }
-            EOF
+                include $f;
+              }
+              EOF
 
-            # Show what we'll test
-            sed -n '1,200p' "$tmpdir/nginx.conf" || true
-            ls -la "$tmpdir/conf.d" || true
-
-            nginx -t -c "$tmpdir/nginx.conf"
+              # Show the small config and run the test
+              sed -n '1,200p' "$tmpdir/nginx.conf" || true
+              nginx -t -c "$tmpdir/nginx.conf"
+            done
