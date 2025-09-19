@@ -1,0 +1,31 @@
+name: Validate NGINX templates
+
+on:
+  push:
+    paths:
+      - 'templates/**'
+      - '.github/**'
+  pull_request:
+    paths:
+      - 'templates/**'
+      - '.github/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Docker (for runner)
+        uses: addnab/docker-run-action@v3
+        with:
+          image: nginx:stable
+          options: --rm
+          run: |
+            echo "Checking templates directory"
+            ls -la templates || true
+            # For each template, attempt to copy into /etc/nginx and test syntax
+            mkdir -p /tmp/nginx
+            cp -r templates/* /tmp/nginx/
+            # A naive: create a minimal nginx config including templates and test
+            echo "worker_processes 1; events { worker_connections 1024; } http { include /tmp/nginx/*; }" > /tmp/nginx/nginx.conf
+            nginx -t -c /tmp/nginx/nginx.conf
