@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <img src="/.github/secure_nginx_logo.png" alt="Icon" width="150">
+  <img src="/.github/secure_nginx_logo.png" alt="Icon" width="250">
 </p>
 
 ## Table of contents
