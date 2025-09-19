@@ -8,7 +8,7 @@
         <img src="https://img.shields.io/github/issues/izeleam/securenginx" alt="GitHub issues">
     </a>
     <br><br>
-    <img src="/.github/secure_nginx_logo.png" alt="Icon">
+    <img src="/.github/secure_nginx_logo.png" alt="Icon" style="width:200px;">
 </p>
 
 ## Table of contents
