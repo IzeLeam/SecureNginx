@@ -4,11 +4,14 @@
     <a href="LICENSE">
         <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
     </a>
-    <a href="https://github.com/izeleam/secure_nginx/issues">
-        <img src="https://img.shields.io/github/issues/izeleam/secure_nginx" alt="GitHub issues">
+    <a href="https://github.com/izeleam/securenginx/issues">
+        <img src="https://img.shields.io/github/issues/izeleam/securenginx" alt="GitHub issues">
     </a>
-    <a href="https://github.com/izeleam/secure_nginx/stargazers">
-        <img src="https://img.shields.io/github/stars/izeleam/secure_nginx?style=social" alt="GitHub stars">
+    <a href="https://github.com/izeleam/securenginx/stargazers">
+        <img src="https://img.shields.io/github/stars/izeleam/securenginx?style=social" alt="GitHub stars">
+    </a>
+    <a href="https://github.com/izeleam/securenginx/network">
+        <img src="https://img.shields.io/github/forks/izeleam/securenginx" alt="GitHub forks">
     </a>
     <br><br>
     <img src="https://raw.githubusercontent.com/izeleam/secure_nginx/.github/secure_nginx_logo.png" alt="Icon">
