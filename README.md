@@ -1,6 +1,18 @@
-# SecureNginx — Educational NGINX Templates
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+<p align="center">
+    <h1 align="center">SecureNginx — Educational NGINX Templates</h1>
+    <br>
+    <a href="LICENSE">
+        <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
+    </a>
+    <a href="https://github.com/izeleam/secure_nginx/issues">
+        <img src="https://img.shields.io/github/issues/izeleam/secure_nginx" alt="GitHub issues">
+    </a>
+    <a href="https://github.com/izeleam/secure_nginx/stargazers">
+        <img src="https://img.shields.io/github/stars/izeleam/secure_nginx?style=social" alt="GitHub stars">
+    </a>
+    <br><br>
+    <img src="https://raw.githubusercontent.com/izeleam/secure_nginx/.github/secure_nginx_logo.png" alt="Icon">
+</p>
 
 ## Table of contents
 - [Overview](#overview)
@@ -76,5 +88,3 @@ Contributions are welcome — see `CONTRIBUTING.md` for the PR process, testing 
 
 - Detailed usage and examples: `docs/USAGE.md`
 - Security policy: `SECURITY.md`
-- Code of Conduct: `CODE_OF_CONDUCT.md`
-
