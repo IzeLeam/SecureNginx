@@ -41,13 +41,13 @@ jobs:
 
             # Create a minimal main config with proper contexts only
             cat > "$tmpdir/nginx.conf" <<'EOF'
-events { worker_connections 1024; }
-http {
-    include /etc/nginx/mime.types;
-    default_type application/octet-stream;
-    include /tmp/nginx-test/conf.d/*.conf;
-}
-EOF
+            events { worker_connections 1024; }
+            http {
+                include /etc/nginx/mime.types;
+                default_type application/octet-stream;
+                include /tmp/nginx-test/conf.d/*.conf;
+            }
+            EOF
 
             # Show what we'll test
             sed -n '1,200p' "$tmpdir/nginx.conf" || true
